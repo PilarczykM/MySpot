@@ -40,11 +40,6 @@ public class ReservationsController : ControllerBase
             return BadRequest("Unknown parking spot");
         }
 
-        if (reservationId is null)
-        {
-            return BadRequest("Parking spot already in use");
-        }
-
         return CreatedAtAction(nameof(Get), new { id = reservationId }, null);
     }
 
