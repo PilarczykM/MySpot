@@ -6,7 +6,7 @@ namespace MySpot.Api.Services;
 
 public class ReservationsService
 {
-    private readonly List<WeeklyParkingSpot> _weeklyParkingSpot =
+    private static readonly List<WeeklyParkingSpot> _weeklyParkingSpot =
         new()
         {
             new(
