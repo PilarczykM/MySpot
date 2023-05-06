@@ -1,4 +1,29 @@
-@url = http://localhost:5000/
+@url = http://localhost:5000/api
+@reservationId = 1
 
 ###
-GET {{url}}WeatherForecast
+GET {{url}}/reservations
+
+###
+GET {{url}}/reservations/{{reservationId}}
+
+###
+POST {{url}}/reservations
+Content-Type: application/json
+
+{
+    "EmployeeName": "John Doe",
+    "ParkingSpotName": "P1",
+    "LicensePLate": "XYZ"
+}
+
+###
+PUT {{url}}/reservations/{{reservationId}}
+Content-Type: application/json
+
+{
+    "LicensePLate": "LOL"
+}
+
+###
+DELETE {{url}}/reservations/{{reservationId}}
