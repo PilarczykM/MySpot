@@ -31,7 +31,7 @@ public class WeeklyParkingSpot
             throw new InvalidReservationDateException(reservation.Date);
         }
 
-        var reservationAlreadyExists = Reservations.Any(r => r.Date.Date == reservation.Date.Date);
+        var reservationAlreadyExists = _reservations.Any(r => r.Date.Date == reservation.Date.Date);
 
         if (reservationAlreadyExists)
         {
