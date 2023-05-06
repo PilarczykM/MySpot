@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using MySpot.Api.Models;
+using MySpot.Api.Commands;
+using MySpot.Api.Entities;
 using MySpot.Api.Services;
 
 namespace MySpot.Api.Controllers;
@@ -16,10 +17,10 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Reservation>> Get() => Ok(_service.GetAll());
+    public ActionResult<IEnumerable<Reservation>> Get() => Ok(_service.GetAllWeekly());
 
-    [HttpGet("{id:int}")]
-    public ActionResult<Reservation> Get(int id)
+    [HttpGet("{id:Guid}")]
+    public ActionResult<Reservation> Get(Guid id)
     {
         var reservation = _service.Get(id);
         if (reservation is null)
@@ -31,9 +32,9 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Reservation> Post([FromBody] Reservation reservation)
+    public ActionResult<Reservation> Post(CreateReservation command)
     {
-        var reservationId = _service.Create(reservation);
+        var reservationId = _service.Create(command with { ReservationId = Guid.NewGuid() });
         if (reservationId is null)
         {
             return BadRequest("Unknown parking spot");
@@ -47,10 +48,10 @@ public class ReservationsController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = reservationId }, null);
     }
 
-    [HttpPut("{id:int}")]
-    public ActionResult<Reservation> Put([FromRoute] int id, [FromBody] Reservation reservation)
+    [HttpPut("{id:Guid}")]
+    public ActionResult<Reservation> Put(Guid id, ChangeReservationLicensePlate command)
     {
-        var updated = _service.Update(id, reservation);
+        var updated = _service.Update(command with { ReservationId = id });
 
         if (!updated)
         {
@@ -60,10 +61,10 @@ public class ReservationsController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("{id:int}")]
-    public ActionResult Delete([FromRoute] int id)
+    [HttpDelete("{id:Guid}")]
+    public ActionResult Delete(Guid id)
     {
-        var deleted = _service.Delete(id);
+        var deleted = _service.Delete(new(id));
 
         if (!deleted)
         {
