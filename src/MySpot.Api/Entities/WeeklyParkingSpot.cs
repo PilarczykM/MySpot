@@ -11,7 +11,7 @@ public class WeeklyParkingSpot
     public Week Week { get; }
     public IEnumerable<Reservation> Reservations => _reservations;
 
-    public WeeklyParkingSpot(Guid id, string name, Week week)
+    public WeeklyParkingSpot(ParkingSpotId id, ParkingSpotName name, Week week)
     {
         Id = id;
         Name = name;
