@@ -1,10 +1,12 @@
+using MySpot.Api.ValueObjects;
+
 namespace MySpot.Api.Exceptions;
 
 public sealed class InvalidReservationDateException : CustomException
 {
-    public DateTime Date { get; }
+    public Date Date { get; }
 
-    public InvalidReservationDateException(DateTime date)
+    public InvalidReservationDateException(Date date)
         : base($"Reservation date {date:d} is invalid.")
     {
         Date = date;
