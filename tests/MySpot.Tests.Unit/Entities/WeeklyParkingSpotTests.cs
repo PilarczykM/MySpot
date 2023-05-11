@@ -7,8 +7,8 @@ namespace MySpot.Tests.Unit.Entities;
 public class WeeklyParkingSpotTests
 {
     #region ARRANGE
-    private DateTime _now;
-    private WeeklyParkingSpot _weeklyParkingSpot;
+    private readonly DateTime _now;
+    private readonly WeeklyParkingSpot _weeklyParkingSpot;
 
     public WeeklyParkingSpotTests()
     {

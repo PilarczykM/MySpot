@@ -1,33 +1,22 @@
 using MySpot.Api.Commands;
-using MySpot.Api.Entities;
+using MySpot.Api.Repositories;
 using MySpot.Api.Services;
-using MySpot.Api.ValueObjects;
+using MySpot.Tests.Unit.Shared;
 
 namespace MySpot.Tests.Unit.Services;
 
 public class ReservationServiceTests
 {
     #region Arrange
-    private readonly Clock _clock = new();
-    private readonly ReservationsService _reservationsService;
-    private readonly List<WeeklyParkingSpot> _weeklyParkingSpot;
+    private readonly IClock _clock;
+    private readonly IReservationsService _reservationsService;
+    private readonly IWeeklyParkingSpotRepository _weeklyParkingSpotRepository;
 
     public ReservationServiceTests()
     {
-        _weeklyParkingSpot = new()
-        {
-            new(
-                Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                "P1",
-                new Week(_clock.Current())
-            ),
-            new(
-                Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                "P2",
-                new Week(_clock.Current())
-            ),
-        };
-        _reservationsService = new ReservationsService(_weeklyParkingSpot);
+        _clock = new TestClock();
+        _weeklyParkingSpotRepository = new InMemoryWeeklyParkingSpotRepository(_clock);
+        _reservationsService = new ReservationsService(_weeklyParkingSpotRepository, _clock);
     }
     #endregion
 
@@ -35,11 +24,11 @@ public class ReservationServiceTests
     public void Create_Reservation_For_Not_Taken_Date_Adds_Reservation()
     {
         //ARRANGE
-        var parkingSpot = _weeklyParkingSpot.FirstOrDefault();
+        var parkingSpot = _weeklyParkingSpotRepository.GetAll().FirstOrDefault();
         var command = new CreateReservation(
             parkingSpot.Id,
             Guid.NewGuid(),
-            DateTime.UtcNow.AddMinutes(5),
+            _clock.Current().AddMinutes(5),
             "Mark",
             "XYZ123"
         );
