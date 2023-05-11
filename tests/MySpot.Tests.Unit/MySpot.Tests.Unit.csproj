@@ -21,4 +21,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\MySpot.Api\MySpot.Api.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Framework\" />
+    <None Remove="Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Framework\" />
+    <Folder Include="Shared\" />
+  </ItemGroup>
 </Project>
