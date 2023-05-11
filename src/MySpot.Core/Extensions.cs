@@ -10,4 +10,3 @@ namespace MySpot.Core
         }
     }
 }
-
