@@ -10,9 +10,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Repositories\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\MySpot.Infrastructure\MySpot.Infrastructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>
