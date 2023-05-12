@@ -27,15 +27,15 @@ using (var scope = app.Services.CreateScope())
         weeklyParkingSpot = new List<WeeklyParkingSpot>()
         {
             new(
-                    Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                    "P1",
-                    new Week(clock.Current())
-                ),
-                new(
-                    Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                    "P2",
-                    new Week(clock.Current())
-                ),
+                Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                "P1",
+                new Week(clock.Current())
+            ),
+            new(
+                Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                "P2",
+                new Week(clock.Current())
+            ),
         };
 
         dbContext.WeeklyParkingSpots.AddRange(weeklyParkingSpot);
