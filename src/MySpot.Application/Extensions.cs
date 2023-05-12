@@ -9,7 +9,7 @@ namespace MySpot.Application
         {
             serviceCollection
                 .AddSingleton<IClock, Clock>()
-                .AddSingleton<IReservationsService, ReservationsService>();
+                .AddScoped<IReservationsService, ReservationsService>();
             return serviceCollection;
         }
     }

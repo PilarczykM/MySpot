@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
-	<ItemGroup>
-		<None Remove="Repositories\" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Repositories\" />
-	</ItemGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\MySpot.Application\MySpot.Application.csproj" />
-	</ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MySpot.Application\MySpot.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+  </ItemGroup>
 </Project>
