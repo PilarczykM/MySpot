@@ -1,5 +1,5 @@
 # Create migration
 
-## Migration from Infrastructure folder
+## Run migration from Infrastructure folder
 
 dotnet ef migrations add Init --startup-project ../MySpot.Api -o ./DAL/Migrations
