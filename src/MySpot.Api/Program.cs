@@ -10,7 +10,11 @@ using MySpot.Core.ValueObjects;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCore().AddApplication().AddInfrastructure().AddControllers();
+builder.Services
+    .AddCore()
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration)
+    .AddControllers();
 
 var app = builder.Build();
 app.MapControllers();

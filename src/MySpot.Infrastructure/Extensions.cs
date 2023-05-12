@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MySpot.Infrastructure.DAL;
 
@@ -10,10 +11,11 @@ namespace MySpot.Infrastructure
     public static class Extensions
     {
         public static IServiceCollection AddInfrastructure(
-            this IServiceCollection serviceCollection
+            this IServiceCollection serviceCollection,
+            IConfiguration configuration
         )
         {
-            serviceCollection.AddPostgres();
+            serviceCollection.AddPostgres(configuration);
             // .AddSingleton<IWeeklyParkingSpotRepository, InMemoryWeeklyParkingSpotRepository>();
             return serviceCollection;
         }
