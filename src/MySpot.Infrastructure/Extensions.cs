@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Microsoft.Extensions.DependencyInjection;
-using MySpot.Core.Repositories;
-using MySpot.Infrastructure.Repositories;
+using MySpot.Infrastructure.DAL;
 
 // INFO: Internal class visible for MySpot.Tests.Unit
 [assembly: InternalsVisibleTo("MySpot.Tests.Unit")]
@@ -14,10 +13,8 @@ namespace MySpot.Infrastructure
             this IServiceCollection serviceCollection
         )
         {
-            serviceCollection.AddSingleton<
-                IWeeklyParkingSpotRepository,
-                InMemoryWeeklyParkingSpotRepository
-            >();
+            serviceCollection.AddPostgres();
+            // .AddSingleton<IWeeklyParkingSpotRepository, InMemoryWeeklyParkingSpotRepository>();
             return serviceCollection;
         }
     }
