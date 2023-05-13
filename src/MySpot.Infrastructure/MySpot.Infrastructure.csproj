@@ -17,10 +17,4 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.5" />
 		<PackageReference Include="Humanizer" Version="2.14.1" />
 	</ItemGroup>
-	<ItemGroup>
-		<None Remove="Middlewares\" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Middlewares\" />
-	</ItemGroup>
 </Project>
