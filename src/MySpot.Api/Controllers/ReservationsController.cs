@@ -19,7 +19,8 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Reservation>> Get() => Ok(_reservationsService.GetAllWeeklyAsync());
+    public ActionResult<IEnumerable<Reservation>> Get() =>
+        Ok(_reservationsService.GetAllWeeklyAsync());
 
     [HttpGet("{id:Guid}")]
     public ActionResult<Reservation> Get(Guid id)

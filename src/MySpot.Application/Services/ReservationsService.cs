@@ -29,7 +29,6 @@ public class ReservationsService : IReservationsService
 
     public async Task<IEnumerable<ReservationDto>> GetAllWeeklyAsync()
     {
-
         var weeklyParkingSpots = await _weeklyParkingSpotsRepository.GetAllAsync();
 
         return weeklyParkingSpots
@@ -116,11 +115,12 @@ public class ReservationsService : IReservationsService
         return true;
     }
 
-    private static async Task<WeeklyParkingSpot> GetWeeklyParkingSpotReservationAsync(ReservationId reservationId)
+    private static async Task<WeeklyParkingSpot> GetWeeklyParkingSpotReservationAsync(
+        ReservationId reservationId
+    )
     {
         var result = await _weeklyParkingSpotsRepository.GetAllAsync();
 
-        return result
-            .SingleOrDefault(x => x.Reservations.Any(r => r.Id == reservationId));
+        return result.SingleOrDefault(x => x.Reservations.Any(r => r.Id == reservationId));
     }
 }

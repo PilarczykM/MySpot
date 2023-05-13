@@ -59,7 +59,8 @@ namespace MySpot.Infrastructure.DAL.Repositories
         public Task<WeeklyParkingSpot> GetAsync(ParkingSpotId id) =>
             Task.FromResult(_weeklyParkingSpots.SingleOrDefault(x => x.Id == id));
 
-        public Task<IEnumerable<WeeklyParkingSpot>> GetAllAsync() => Task.FromResult(_weeklyParkingSpots.AsEnumerable());
+        public Task<IEnumerable<WeeklyParkingSpot>> GetAllAsync() =>
+            Task.FromResult(_weeklyParkingSpots.AsEnumerable());
 
         public Task UpdateAsync(WeeklyParkingSpot weeklyParkingSpot) => Task.CompletedTask;
     }
