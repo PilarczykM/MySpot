@@ -1,7 +1,7 @@
-﻿using MySpot.Core.Entities;
-using MySpot.Core.ValueObjects;
+﻿using MySpot.Application.Services;
+using MySpot.Core.Entities;
 using MySpot.Core.Repositories;
-using MySpot.Application.Services;
+using MySpot.Core.ValueObjects;
 
 namespace MySpot.Infrastructure.DAL.Repositories
 {
@@ -44,17 +44,24 @@ namespace MySpot.Infrastructure.DAL.Repositories
             };
         }
 
-        public void Add(WeeklyParkingSpot weeklyParkingSpot) =>
+        public Task AddAsync(WeeklyParkingSpot weeklyParkingSpot)
+        {
             _weeklyParkingSpots.Add(weeklyParkingSpot);
+            return Task.CompletedTask;
+        }
 
-        public void Delete(WeeklyParkingSpot weeklyParkingSpot) =>
+        public Task DeleteAsync(WeeklyParkingSpot weeklyParkingSpot)
+        {
             _weeklyParkingSpots.Remove(weeklyParkingSpot);
+            return Task.CompletedTask;
+        }
 
-        public WeeklyParkingSpot Get(ParkingSpotId id) =>
-            _weeklyParkingSpots.SingleOrDefault(x => x.Id == id);
+        public Task<WeeklyParkingSpot> GetAsync(ParkingSpotId id) =>
+            Task.FromResult(_weeklyParkingSpots.SingleOrDefault(x => x.Id == id));
 
-        public IEnumerable<WeeklyParkingSpot> GetAll() => _weeklyParkingSpots;
+        public Task<IEnumerable<WeeklyParkingSpot>> GetAllAsync() =>
+            Task.FromResult(_weeklyParkingSpots.AsEnumerable());
 
-        public void Update(WeeklyParkingSpot weeklyParkingSpot) { }
+        public Task UpdateAsync(WeeklyParkingSpot weeklyParkingSpot) => Task.CompletedTask;
     }
 }

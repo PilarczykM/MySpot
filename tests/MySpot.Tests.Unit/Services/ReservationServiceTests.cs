@@ -22,10 +22,11 @@ public class ReservationServiceTests
     #endregion
 
     [Fact]
-    public void Create_Reservation_For_Not_Taken_Date_Adds_Reservation()
+    public async Task Create_Reservation_For_Not_Taken_Date_Adds_Reservation()
     {
         //ARRANGE
-        var parkingSpot = _weeklyParkingSpotRepository.GetAll().FirstOrDefault();
+        var parkingSpots = await _weeklyParkingSpotRepository.GetAllAsync();
+        var parkingSpot = parkingSpots.FirstOrDefault();
         var command = new CreateReservation(
             parkingSpot.Id,
             Guid.NewGuid(),
@@ -35,7 +36,7 @@ public class ReservationServiceTests
         );
 
         //ACT
-        var reservationId = _reservationsService.Create(command);
+        var reservationId = await _reservationsService.CreateAsync(command);
 
         //ASSERT
         reservationId.ShouldNotBeNull();
