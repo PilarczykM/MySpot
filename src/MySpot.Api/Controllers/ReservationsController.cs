@@ -19,12 +19,12 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Reservation>> Get() => Ok(_reservationsService.GetAllWeekly());
+    public ActionResult<IEnumerable<Reservation>> Get() => Ok(_reservationsService.GetAllWeeklyAsync());
 
     [HttpGet("{id:Guid}")]
     public ActionResult<Reservation> Get(Guid id)
     {
-        var reservation = _reservationsService.Get(id);
+        var reservation = _reservationsService.GetAsync(id);
         if (reservation is null)
         {
             return NotFound("Reservation not found.");
@@ -36,7 +36,7 @@ public class ReservationsController : ControllerBase
     [HttpPost]
     public ActionResult<Reservation> Post(CreateReservation command)
     {
-        var reservationId = _reservationsService.Create(
+        var reservationId = _reservationsService.CreateAsync(
             command with
             {
                 ReservationId = Guid.NewGuid()
@@ -51,9 +51,9 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPut("{id:Guid}")]
-    public ActionResult<Reservation> Put(Guid id, ChangeReservationLicensePlate command)
+    public async Task<ActionResult<Reservation>> Put(Guid id, ChangeReservationLicensePlate command)
     {
-        var updated = _reservationsService.Update(command with { ReservationId = id });
+        var updated = await _reservationsService.UpdateAsync(command with { ReservationId = id });
 
         if (!updated)
         {
@@ -64,9 +64,9 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpDelete("{id:Guid}")]
-    public ActionResult Delete(Guid id)
+    public async Task<ActionResult> Delete(Guid id)
     {
-        var deleted = _reservationsService.Delete(new(id));
+        var deleted = await _reservationsService.DeleteAsync(new(id));
 
         if (!deleted)
         {
