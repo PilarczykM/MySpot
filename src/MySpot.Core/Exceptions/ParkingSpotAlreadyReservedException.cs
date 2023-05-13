@@ -8,7 +8,7 @@ public sealed class ParkingSpotAlreadyReservedException : CustomException
     public Date Date { get; }
 
     public ParkingSpotAlreadyReservedException(string name, Date date)
-        : base($"Parking spot: {name} is already reserved at: {date:d}")
+        : base($"Parking spot '{name}' is already reserved at: {date:d}")
     {
         Name = name;
         Date = date;
