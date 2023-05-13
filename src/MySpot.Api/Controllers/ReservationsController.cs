@@ -19,13 +19,13 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Reservation>> Get() =>
-        Ok(_reservationsService.GetAllWeeklyAsync());
+    public async Task<ActionResult<IEnumerable<Reservation>>> Get() =>
+        Ok(await _reservationsService.GetAllWeeklyAsync());
 
     [HttpGet("{id:Guid}")]
-    public ActionResult<Reservation> Get(Guid id)
+    public async Task<ActionResult<Reservation>> Get(Guid id)
     {
-        var reservation = _reservationsService.GetAsync(id);
+        var reservation = await _reservationsService.GetAsync(id);
         if (reservation is null)
         {
             return NotFound("Reservation not found.");
@@ -35,9 +35,9 @@ public class ReservationsController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Reservation> Post(CreateReservation command)
+    public async Task<ActionResult<Reservation>> Post(CreateReservation command)
     {
-        var reservationId = _reservationsService.CreateAsync(
+        var reservationId = await _reservationsService.CreateAsync(
             command with
             {
                 ReservationId = Guid.NewGuid()
