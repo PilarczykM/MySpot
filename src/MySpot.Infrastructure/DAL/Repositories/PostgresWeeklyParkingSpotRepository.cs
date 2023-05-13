@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MySpot.Core.Entities;
 using MySpot.Core.Repositories;
@@ -37,11 +38,21 @@ internal sealed class PostgresWeeklyParkingSpotRepository : IWeeklyParkingSpotRe
         return result.AsEnumerable();
     }
 
-    public async Task<IEnumerable<WeeklyParkingSpot>> GetByWeekAsync(Week week) =>
-        await _weeklyParkingSpots
+    public async Task<IEnumerable<WeeklyParkingSpot>> GetByWeekAsync(Week week)
+    {
+        var parkingSpots = await _weeklyParkingSpots
             .Include(x => x.Reservations)
-            .Where(x => x.Week == week)
             .ToListAsync();
+
+        var expectedParkingSpots = parkingSpots
+            .Where<WeeklyParkingSpot>(x => x.Week.To.Value.Year == week.To.Value.Year &&
+            x.Week.To.Value.Month == week.To.Value.Month &&
+            x.Week.To.Value.Day == week.To.Value.Day)
+            .ToList();
+
+        return expectedParkingSpots;
+
+    }
 
     public async Task UpdateAsync(WeeklyParkingSpot weeklyParkingSpot)
     {

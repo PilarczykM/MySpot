@@ -9,6 +9,10 @@ public interface IParkingReservationService
         IEnumerable<WeeklyParkingSpot> weeklyParkingSpots,
         JobTitle jobTitle,
         WeeklyParkingSpot parkingSpotToReserve,
-        Reservation reservation
+        VehicleReservation reservation
     );
+
+    void ReserveParkingForCleaning(
+        IEnumerable<WeeklyParkingSpot> weeklyParkingSpots,
+        Date date);
 }

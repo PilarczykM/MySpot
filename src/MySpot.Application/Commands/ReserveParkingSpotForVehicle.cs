@@ -1,6 +1,6 @@
 namespace MySpot.Application.Commands;
 
-public record CreateReservation(
+public record ReserveParkingSpotForVehicle(
     Guid ParkingSpotId,
     Guid ReservationId,
     DateTime Date,

@@ -20,11 +20,30 @@ internal sealed class ParkingReservationService : IParkingReservationService
         _clock = clock;
     }
 
+    public void ReserveParkingForCleaning(
+        IEnumerable<WeeklyParkingSpot> weeklyParkingSpots,
+        Date date
+    )
+    {
+        foreach (var parkingSpot in weeklyParkingSpots)
+        {
+            var reservationsForSameDate = parkingSpot.Reservations.Where(x => x.Date == date);
+            parkingSpot.RemoveReservations(reservationsForSameDate);
+
+            var cleaningReservation = new CleaningReservation(
+                ReservationId.Create(),
+                date,
+                parkingSpot.Id
+            );
+            parkingSpot.AddReservation(cleaningReservation, new Date(_clock.Current()));
+        }
+    }
+
     public void ReserveSpotForVehicle(
         IEnumerable<WeeklyParkingSpot> weeklyParkingSpots,
         JobTitle jobTitle,
         WeeklyParkingSpot parkingSpotToReserve,
-        Reservation reservation
+        VehicleReservation reservation
     )
     {
         var parkingSpotId = parkingSpotToReserve.Id;

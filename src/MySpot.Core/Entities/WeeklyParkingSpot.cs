@@ -49,4 +49,7 @@ public class WeeklyParkingSpot
 
         _reservations.Remove(reservation);
     }
+
+    public void RemoveReservations(IEnumerable<Reservation> reservations)
+        => _reservations.RemoveWhere(x => reservations.Any(r => r.Id == x.Id));
 }

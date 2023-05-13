@@ -1,6 +1,6 @@
 namespace MySpot.Core.ValueObjects;
 
-public sealed record Date
+public record Date
 {
     public DateTimeOffset Value { get; }
 
@@ -26,4 +26,5 @@ public sealed record Date
     public static Date Now => new(DateTimeOffset.Now);
 
     public override string ToString() => Value.ToString("d");
+
 }
