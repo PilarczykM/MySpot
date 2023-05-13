@@ -28,8 +28,7 @@ namespace MySpot.Infrastructure.Middlewares
                         new Error(
                             exception
                                 .GetType()
-                                .Name
-                                .Replace("Exception", string.Empty)
+                                .Name.Replace("Exception", string.Empty)
                                 .Underscore(),
                             exception.Message
                         )
