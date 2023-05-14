@@ -89,7 +89,8 @@ public class ReservationsService : IReservationsService
             new(command.Date),
             command.ParkingSpotId,
             command.EmployeeName,
-            command.LicensePlate
+            command.LicensePlate,
+            command.Capacity
         );
 
         _parkingReservationService.ReserveSpotForVehicle(

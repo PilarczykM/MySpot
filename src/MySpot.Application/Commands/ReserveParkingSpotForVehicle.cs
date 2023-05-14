@@ -5,5 +5,6 @@ public record ReserveParkingSpotForVehicle(
     Guid ReservationId,
     DateTime Date,
     string EmployeeName,
-    string LicensePlate
+    string LicensePlate,
+    int Capacity
 );

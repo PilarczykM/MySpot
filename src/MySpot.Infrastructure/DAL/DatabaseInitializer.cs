@@ -31,27 +31,27 @@ public class DatabaseInitializer : IHostedService
             var clock = new Clock();
             weeklyParkingSpot = new List<WeeklyParkingSpot>()
             {
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000001"),
                     "P1",
                     new Week(clock.Current())
                 ),
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000002"),
                     "P2",
                     new Week(clock.Current())
                 ),
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000003"),
                     "P3",
                     new Week(clock.Current())
                 ),
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000004"),
                     "P4",
                     new Week(clock.Current())
                 ),
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000005"),
                     "P5",
                     new Week(clock.Current())

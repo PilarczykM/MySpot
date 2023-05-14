@@ -13,7 +13,7 @@ public class WeeklyParkingSpotTests
     public WeeklyParkingSpotTests()
     {
         _now = new DateTime(2023, 01, 01);
-        _weeklyParkingSpot = new WeeklyParkingSpot(Guid.NewGuid(), "XYZ", new Week(_now));
+        _weeklyParkingSpot = WeeklyParkingSpot.Create(Guid.NewGuid(), "XYZ", new Week(_now));
     }
     #endregion
 
@@ -30,7 +30,8 @@ public class WeeklyParkingSpotTests
             new Date(_now.AddDays(offsetDay)),
             _weeklyParkingSpot.Id,
             "John Doe",
-            "123456"
+            "123456",
+            2
         );
 
         //ACT
@@ -52,7 +53,8 @@ public class WeeklyParkingSpotTests
             new Date(_now),
             _weeklyParkingSpot.Id,
             "John Doe",
-            "123456"
+            "123456",
+            2
         );
         _weeklyParkingSpot.AddReservation(reservation, new Date(_now));
 
@@ -63,7 +65,7 @@ public class WeeklyParkingSpotTests
 
         //ASSERT
         exception.ShouldNotBeNull();
-        exception.ShouldBeOfType<ParkingSpotAlreadyReservedException>();
+        exception.ShouldBeOfType<ParkingSpotCapacityExceededException>();
     }
 
     [Fact]
@@ -76,7 +78,8 @@ public class WeeklyParkingSpotTests
             new Date(_now),
             _weeklyParkingSpot.Id,
             "John Doe",
-            "123456"
+            "123456",
+            1
         );
 
         //ACT

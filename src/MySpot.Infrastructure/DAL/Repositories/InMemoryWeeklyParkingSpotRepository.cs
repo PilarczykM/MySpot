@@ -1,5 +1,4 @@
-﻿using MySpot.Application.Services;
-using MySpot.Core.Abstractions;
+﻿using MySpot.Core.Abstractions;
 using MySpot.Core.Entities;
 using MySpot.Core.Repositories;
 using MySpot.Core.ValueObjects;
@@ -17,27 +16,27 @@ namespace MySpot.Infrastructure.DAL.Repositories
             _clock = clock;
             _weeklyParkingSpots = new List<WeeklyParkingSpot>()
             {
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000001"),
                     "P1",
                     new Week(_clock.Current())
                 ),
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000002"),
                     "P2",
                     new Week(_clock.Current())
                 ),
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000003"),
                     "P3",
                     new Week(_clock.Current())
                 ),
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000004"),
                     "P4",
                     new Week(_clock.Current())
                 ),
-                new(
+                WeeklyParkingSpot.Create(
                     Guid.Parse("00000000-0000-0000-0000-000000000005"),
                     "P5",
                     new Week(clock.Current())

@@ -15,7 +15,7 @@ public class ReservationServiceTests
     private readonly IClock _clock;
     private readonly IReservationsService _reservationsService;
     private readonly IWeeklyParkingSpotRepository _weeklyParkingSpotRepository;
-    private readonly ParkingReservationService _parkingReservationService;
+    private readonly IParkingReservationService _parkingReservationService;
 
     public ReservationServiceTests()
     {
@@ -42,7 +42,8 @@ public class ReservationServiceTests
             Guid.NewGuid(),
             _clock.Current().AddMinutes(5),
             "Mark",
-            "XYZ123"
+            "XYZ123",
+            2
         );
 
         //ACT
