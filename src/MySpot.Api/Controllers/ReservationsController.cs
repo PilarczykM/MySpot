@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using MySpot.Core.Entities;
-using MySpot.Application.Services;
 using MySpot.Application.Commands;
+using MySpot.Application.Services;
 using MySpot.Core.Abstractions;
+using MySpot.Core.Entities;
 
 namespace MySpot.Api.Controllers;
 
@@ -35,10 +35,10 @@ public class ReservationsController : ControllerBase
         return Ok(reservation);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<Reservation>> Post(CreateReservation command)
+    [HttpPost("vehicle")]
+    public async Task<ActionResult<Reservation>> Post(ReserveParkingSpotForVehicle command)
     {
-        var reservationId = await _reservationsService.CreateAsync(
+        var reservationId = await _reservationsService.ReserveForVehicleAsync(
             command with
             {
                 ReservationId = Guid.NewGuid()
@@ -52,10 +52,18 @@ public class ReservationsController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = reservationId }, null);
     }
 
+    [HttpPost("cleaning")]
+    public async Task<ActionResult> Post(ReserveParkingSpotForCleaning command)
+    {
+        await _reservationsService.ReserveForCleaningAsync(command);
+
+        return Ok();
+    }
+
     [HttpPut("{id:Guid}")]
     public async Task<ActionResult<Reservation>> Put(Guid id, ChangeReservationLicensePlate command)
     {
-        var updated = await _reservationsService.UpdateAsync(command with { ReservationId = id });
+        var updated = await _reservationsService.ChangeReservationLicensePlateAsync(command with { ReservationId = id });
 
         if (!updated)
         {

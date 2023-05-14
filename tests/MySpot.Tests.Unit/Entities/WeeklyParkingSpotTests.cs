@@ -25,12 +25,12 @@ public class WeeklyParkingSpotTests
     )
     {
         //ARRANGE
-        var reservation = new Reservation(
+        var reservation = new VehicleReservation(
             Guid.NewGuid(),
-            "John Doe",
-            "123456",
             new Date(_now.AddDays(offsetDay)),
-            _weeklyParkingSpot.Id
+            _weeklyParkingSpot.Id,
+            "John Doe",
+            "123456"
         );
 
         //ACT
@@ -47,12 +47,12 @@ public class WeeklyParkingSpotTests
     public void AddReservation_Throws_ParkingSpotAlreadyReservedException_When_Same_Reservation_Exists()
     {
         //ARRANGE
-        var reservation = new Reservation(
+        var reservation = new VehicleReservation(
             Guid.NewGuid(),
-            "John Doe",
-            "123456",
             new Date(_now),
-            _weeklyParkingSpot.Id
+            _weeklyParkingSpot.Id,
+            "John Doe",
+            "123456"
         );
         _weeklyParkingSpot.AddReservation(reservation, new Date(_now));
 
@@ -71,12 +71,12 @@ public class WeeklyParkingSpotTests
     {
         //ARRANGE
         const int expectedReservationCount = 1;
-        var reservation = new Reservation(
+        var reservation = new VehicleReservation(
             Guid.NewGuid(),
-            "John Doe",
-            "123456",
             new Date(_now),
-            _weeklyParkingSpot.Id
+            _weeklyParkingSpot.Id,
+            "John Doe",
+            "123456"
         );
 
         //ACT
