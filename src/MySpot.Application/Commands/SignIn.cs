@@ -2,6 +2,6 @@
 
 namespace MySpot.Application.Commands
 {
-    public record ReserveParkingSpotForCleaning(DateTime Date) : ICommand;
+    public record SignIn(string Email, string Password) : ICommand;
 }
 
