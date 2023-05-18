@@ -18,4 +18,3 @@ namespace MySpot.Api.Controllers
         public ActionResult Get() => Ok(_appOptions.Name);
     }
 }
-

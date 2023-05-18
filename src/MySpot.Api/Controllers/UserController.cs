@@ -19,11 +19,13 @@ namespace MySpot.Api.Controllers
         private readonly ICommandHandler<SignIn> _signInHandler;
         private readonly ITokenStorage _tokenStorage;
 
-        public UsersController(ICommandHandler<SignUp> signUpHandler,
+        public UsersController(
+            ICommandHandler<SignUp> signUpHandler,
             ICommandHandler<SignIn> signInHandler,
             IQueryHandler<GetUsers, IEnumerable<UserDto>> getUsersHandler,
             IQueryHandler<GetUser, UserDto> getUserHandler,
-            ITokenStorage tokenStorage)
+            ITokenStorage tokenStorage
+        )
         {
             _signUpHandler = signUpHandler;
             _signInHandler = signInHandler;
@@ -70,8 +72,8 @@ namespace MySpot.Api.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [Authorize(Policy = "is-admin")]
-        public async Task<ActionResult<IEnumerable<UserDto>>> Get([FromQuery] GetUsers query)
-            => Ok(await _getUsersHandler.HandleAsync(query));
+        public async Task<ActionResult<IEnumerable<UserDto>>> Get([FromQuery] GetUsers query) =>
+            Ok(await _getUsersHandler.HandleAsync(query));
 
         [HttpPost]
         [SwaggerOperation("Create the user account")]
@@ -96,4 +98,3 @@ namespace MySpot.Api.Controllers
         }
     }
 }
-

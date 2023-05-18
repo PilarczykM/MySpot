@@ -14,10 +14,12 @@ public class ReservationsController : ControllerBase
     private readonly ICommandHandler<ChangeReservationLicencePlate> _changeReservationLicencePlateHandler;
     private readonly ICommandHandler<DeleteReservation> _deleteReservationHandler;
 
-    public ReservationsController(ICommandHandler<ReserveParkingSpotForVehicle> reserveParkingSpotsForVehicleHandler,
+    public ReservationsController(
+        ICommandHandler<ReserveParkingSpotForVehicle> reserveParkingSpotsForVehicleHandler,
         ICommandHandler<ReserveParkingSpotForCleaning> reserveParkingSpotsForCleaningHandler,
         ICommandHandler<ChangeReservationLicencePlate> changeReservationLicencePlateHandler,
-        ICommandHandler<DeleteReservation> deleteReservationHandler)
+        ICommandHandler<DeleteReservation> deleteReservationHandler
+    )
     {
         _reserveParkingSpotsForVehicleHandler = reserveParkingSpotsForVehicleHandler;
         _reserveParkingSpotsForCleaningHandler = reserveParkingSpotsForCleaningHandler;
@@ -25,17 +27,18 @@ public class ReservationsController : ControllerBase
         _deleteReservationHandler = deleteReservationHandler;
     }
 
-
     [Authorize]
     [HttpPost("{parkingSpotId:guid}/reservations/vehicle")]
     public async Task<ActionResult> Post(Guid parkingSpotId, ReserveParkingSpotForVehicle command)
     {
-        await _reserveParkingSpotsForVehicleHandler.HandleAsync(command with
-        {
-            ReservationId = Guid.NewGuid(),
-            ParkingSpotId = parkingSpotId,
-            UserId = Guid.Parse(User.Identity.Name)
-        });
+        await _reserveParkingSpotsForVehicleHandler.HandleAsync(
+            command with
+            {
+                ReservationId = Guid.NewGuid(),
+                ParkingSpotId = parkingSpotId,
+                UserId = Guid.Parse(User.Identity.Name)
+            }
+        );
         return NoContent();
     }
 
@@ -49,7 +52,12 @@ public class ReservationsController : ControllerBase
     [HttpPut("reservations/{reservationId:guid}")]
     public async Task<ActionResult> Put(Guid reservationId, ChangeReservationLicencePlate command)
     {
-        await _changeReservationLicencePlateHandler.HandleAsync(command with { ReservationId = reservationId });
+        await _changeReservationLicencePlateHandler.HandleAsync(
+            command with
+            {
+                ReservationId = reservationId
+            }
+        );
         return NoContent();
     }
 
