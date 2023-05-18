@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpot.Application", "src\M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpot.Infrastructure", "src\MySpot.Infrastructure\MySpot.Infrastructure.csproj", "{A8C4CAFC-BC10-4B5C-B18D-2E11EB9E13F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpot.Tests.Integration", "tests\MySpot.Tests.Unit\MySpot.Tests.Integration\MySpot.Tests.Integration.csproj", "{39A56D11-C2C1-4833-A403-9DF092AA54B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{A8C4CAFC-BC10-4B5C-B18D-2E11EB9E13F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8C4CAFC-BC10-4B5C-B18D-2E11EB9E13F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8C4CAFC-BC10-4B5C-B18D-2E11EB9E13F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39A56D11-C2C1-4833-A403-9DF092AA54B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39A56D11-C2C1-4833-A403-9DF092AA54B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39A56D11-C2C1-4833-A403-9DF092AA54B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39A56D11-C2C1-4833-A403-9DF092AA54B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D737D644-62B4-451D-9D90-989C85CDE390} = {097845A8-7F59-4C09-AD72-3174CDA6716A}
@@ -57,5 +63,6 @@ Global
 		{3B20D31B-EC04-45E5-8224-2C75154E98DC} = {097845A8-7F59-4C09-AD72-3174CDA6716A}
 		{4EF9F01D-F799-4DF0-B0DA-0030FB35269E} = {097845A8-7F59-4C09-AD72-3174CDA6716A}
 		{A8C4CAFC-BC10-4B5C-B18D-2E11EB9E13F7} = {097845A8-7F59-4C09-AD72-3174CDA6716A}
+		{39A56D11-C2C1-4833-A403-9DF092AA54B2} = {B5FEDEC8-5B0A-4B92-A0C7-E7E3C6724E71}
 	EndGlobalSection
 EndGlobal
