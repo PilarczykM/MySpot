@@ -1,24 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MySpot.Core\MySpot.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Abstractions\" />
-    <None Remove="Exceptions\" />
-    <None Remove="Queries\" />
-    <None Remove="Commands\Handlers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abstractions\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Queries\" />
-    <Folder Include="Commands\Handlers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Scrutor" Version="4.2.2" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MySpot.Core\MySpot.Core.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Scrutor" Version="4.2.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="MySpot.Tests.Integration" />
+	</ItemGroup>
 </Project>
