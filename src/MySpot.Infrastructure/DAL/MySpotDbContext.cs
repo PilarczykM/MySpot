@@ -9,9 +9,8 @@ internal sealed class MySpotDbContext : DbContext
     public DbSet<WeeklyParkingSpot> WeeklyParkingSpots { get; set; }
     public DbSet<User> Users { get; set; }
 
-    public MySpotDbContext(DbContextOptions<MySpotDbContext> options) : base(options)
-    {
-    }
+    public MySpotDbContext(DbContextOptions<MySpotDbContext> options)
+        : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -5,4 +5,3 @@
         Task ExecuteAsync(Func<Task> action);
     }
 }
-

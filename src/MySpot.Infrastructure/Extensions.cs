@@ -7,19 +7,23 @@ using MySpot.Application.Abstractions;
 using MySpot.Core.Abstractions;
 using MySpot.Infrastructure.Auth;
 using MySpot.Infrastructure.DAL;
+using MySpot.Infrastructure.Exceptions;
 using MySpot.Infrastructure.Logging;
-using MySpot.Infrastructure.Middlewares;
 using MySpot.Infrastructure.Services;
 using MySpot.Infrastructure.Time;
 
 // INFO: Internal class visible for MySpot.Tests.Unit
 [assembly: InternalsVisibleTo("MySpot.Tests.Integration")]
 [assembly: InternalsVisibleTo("MySpot.Tests.Unit")]
+
 namespace MySpot.Infrastructure;
 
 public static class Extensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         services.AddControllers();
         services.Configure<AppOptions>(configuration.GetRequiredSection("app"));
@@ -37,19 +41,18 @@ public static class Extensions
         services.AddSwaggerGen(swagger =>
         {
             swagger.EnableAnnotations();
-            swagger.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Title = "MySpot API",
-                Version = "v1"
-            });
+            swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "MySpot API", Version = "v1" });
         });
 
         var infrastructureAssembly = typeof(AppOptions).Assembly;
 
-        services.Scan(s => s.FromAssemblies(infrastructureAssembly)
-            .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
+        services.Scan(
+            s =>
+                s.FromAssemblies(infrastructureAssembly)
+                    .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
+                    .AsImplementedInterfaces()
+                    .WithScopedLifetime()
+        );
 
         services.AddAuth(configuration);
 
@@ -73,7 +76,8 @@ public static class Extensions
         return app;
     }
 
-    public static T GetOptions<T>(this IConfiguration configuration, string sectionName) where T : class, new()
+    public static T GetOptions<T>(this IConfiguration configuration, string sectionName)
+        where T : class, new()
     {
         var options = new T();
         var section = configuration.GetRequiredSection(sectionName);

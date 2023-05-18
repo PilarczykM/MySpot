@@ -8,10 +8,12 @@ namespace MySpot.Infrastructure.Logging
     {
         public static IServiceCollection AddCustomLogging(this IServiceCollection services)
         {
-            services.TryDecorate(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>));
+            services.TryDecorate(
+                typeof(ICommandHandler<>),
+                typeof(LoggingCommandHandlerDecorator<>)
+            );
 
             return services;
         }
     }
 }
-

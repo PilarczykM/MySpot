@@ -4,8 +4,7 @@
     {
         private readonly MySpotDbContext _dbContext;
 
-        public PostgresUnitOfWork(MySpotDbContext dbContext)
-            => _dbContext = dbContext;
+        public PostgresUnitOfWork(MySpotDbContext dbContext) => _dbContext = dbContext;
 
         public async Task ExecuteAsync(Func<Task> action)
         {
@@ -25,4 +24,3 @@
         }
     }
 }
-

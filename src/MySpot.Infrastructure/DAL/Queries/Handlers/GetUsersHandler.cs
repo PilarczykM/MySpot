@@ -9,14 +9,9 @@ namespace MySpot.Infrastructure.DAL.Queries.Handlers
     {
         private readonly MySpotDbContext _dbContext;
 
-        public GetUsersHandler(MySpotDbContext dbContext)
-            => _dbContext = dbContext;
+        public GetUsersHandler(MySpotDbContext dbContext) => _dbContext = dbContext;
 
-        public async Task<IEnumerable<UserDto>> HandleAsync(GetUsers query)
-            => await _dbContext.Users
-                .AsNoTracking()
-                .Select(x => x.AsDto())
-                .ToListAsync();
+        public async Task<IEnumerable<UserDto>> HandleAsync(GetUsers query) =>
+            await _dbContext.Users.AsNoTracking().Select(x => x.AsDto()).ToListAsync();
     }
 }
-

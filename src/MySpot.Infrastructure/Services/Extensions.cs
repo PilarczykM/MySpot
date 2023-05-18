@@ -17,4 +17,3 @@ namespace MySpot.Infrastructure.Services
         }
     }
 }
-

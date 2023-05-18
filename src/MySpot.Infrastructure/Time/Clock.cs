@@ -7,4 +7,3 @@ namespace MySpot.Infrastructure.Time
         public DateTime Current() => DateTime.UtcNow;
     }
 }
-

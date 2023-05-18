@@ -12,13 +12,33 @@ namespace MySpot.Infrastructure.DAL.Repositories
         public InMemoryWeeklyParkingSpotRepository(IClock clock)
         {
             _weeklyParkingSpots = new List<WeeklyParkingSpot>
-        {
-            WeeklyParkingSpot.Create(Guid.Parse("00000000-0000-0000-0000-000000000001"), new Week(clock.Current()), "P1"),
-            WeeklyParkingSpot.Create(Guid.Parse("00000000-0000-0000-0000-000000000002"), new Week(clock.Current()), "P2"),
-            WeeklyParkingSpot.Create(Guid.Parse("00000000-0000-0000-0000-000000000003"), new Week(clock.Current()), "P3"),
-            WeeklyParkingSpot.Create(Guid.Parse("00000000-0000-0000-0000-000000000004"), new Week(clock.Current()), "P4"),
-            WeeklyParkingSpot.Create(Guid.Parse("00000000-0000-0000-0000-000000000005"), new Week(clock.Current()), "P5"),
-        };
+            {
+                WeeklyParkingSpot.Create(
+                    Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                    new Week(clock.Current()),
+                    "P1"
+                ),
+                WeeklyParkingSpot.Create(
+                    Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                    new Week(clock.Current()),
+                    "P2"
+                ),
+                WeeklyParkingSpot.Create(
+                    Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                    new Week(clock.Current()),
+                    "P3"
+                ),
+                WeeklyParkingSpot.Create(
+                    Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                    new Week(clock.Current()),
+                    "P4"
+                ),
+                WeeklyParkingSpot.Create(
+                    Guid.Parse("00000000-0000-0000-0000-000000000005"),
+                    new Week(clock.Current()),
+                    "P5"
+                ),
+            };
         }
 
         public async Task<IEnumerable<WeeklyParkingSpot>> GetAllAsync()

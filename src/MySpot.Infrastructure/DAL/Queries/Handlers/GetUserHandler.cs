@@ -10,8 +10,7 @@ namespace MySpot.Infrastructure.DAL.Queries.Handlers
     {
         private readonly MySpotDbContext _dbContext;
 
-        public GetUserHandler(MySpotDbContext dbContext)
-            => _dbContext = dbContext;
+        public GetUserHandler(MySpotDbContext dbContext) => _dbContext = dbContext;
 
         public async Task<UserDto> HandleAsync(GetUser query)
         {
@@ -24,4 +23,3 @@ namespace MySpot.Infrastructure.DAL.Queries.Handlers
         }
     }
 }
-

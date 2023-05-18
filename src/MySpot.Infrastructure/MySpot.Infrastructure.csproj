@@ -30,24 +30,4 @@
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
-	<ItemGroup>
-	  <None Remove="DAL\Decorators\" />
-	  <None Remove="DAL\Queries\" />
-	  <None Remove="DAL\Queries\Handlers\" />
-	  <None Remove="Exceptions\" />
-	  <None Remove="Logging\" />
-	  <None Remove="Logging\Decorators\" />
-	  <None Remove="Services\" />
-	  <None Remove="Time\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="DAL\Decorators\" />
-	  <Folder Include="DAL\Queries\" />
-	  <Folder Include="DAL\Queries\Handlers\" />
-	  <Folder Include="Exceptions\" />
-	  <Folder Include="Logging\" />
-	  <Folder Include="Logging\Decorators\" />
-	  <Folder Include="Services\" />
-	  <Folder Include="Time\" />
-	</ItemGroup>
 </Project>

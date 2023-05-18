@@ -12,7 +12,10 @@ internal static class Extensions
 {
     private const string OptionsSectionName = "postgres";
 
-    public static IServiceCollection AddPostgres(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPostgres(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
     {
         services.Configure<PostgresOptions>(configuration.GetRequiredSection(OptionsSectionName));
         var postgresOptions = configuration.GetOptions<PostgresOptions>(OptionsSectionName);
@@ -22,7 +25,10 @@ internal static class Extensions
         services.AddHostedService<DatabaseInitializer>();
         services.AddScoped<IUnitOfWork, PostgresUnitOfWork>();
 
-        services.TryDecorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
+        services.TryDecorate(
+            typeof(ICommandHandler<>),
+            typeof(UnitOfWorkCommandHandlerDecorator<>)
+        );
 
         // EF Core + Npgsql issue
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

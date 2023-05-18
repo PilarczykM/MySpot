@@ -12,7 +12,10 @@ namespace MySpot.Infrastructure.Auth
     {
         private const string OptionsSectionName = "auth";
 
-        public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAuth(
+            this IServiceCollection services,
+            IConfiguration configuration
+        )
         {
             var options = configuration.GetOptions<AuthOptions>(OptionsSectionName);
 
@@ -33,20 +36,24 @@ namespace MySpot.Infrastructure.Auth
                     {
                         ValidIssuer = options.Issuer,
                         ClockSkew = TimeSpan.Zero,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SigningKey))
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(options.SigningKey)
+                        )
                     };
                 });
 
             services.AddAuthorization(authorization =>
             {
-                authorization.AddPolicy("is-admin", policy =>
-                {
-                    policy.RequireRole("admin");
-                });
+                authorization.AddPolicy(
+                    "is-admin",
+                    policy =>
+                    {
+                        policy.RequireRole("admin");
+                    }
+                );
             });
 
             return services;
         }
     }
 }
-

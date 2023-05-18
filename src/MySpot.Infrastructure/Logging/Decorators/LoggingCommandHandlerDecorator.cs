@@ -4,13 +4,16 @@ using MySpot.Application.Abstractions;
 
 namespace MySpot.Infrastructure.Logging.Decorators
 {
-    internal sealed class LoggingCommandHandlerDecorator<TCommand> : ICommandHandler<TCommand> where TCommand : class, ICommand
+    internal sealed class LoggingCommandHandlerDecorator<TCommand> : ICommandHandler<TCommand>
+        where TCommand : class, ICommand
     {
         private readonly ICommandHandler<TCommand> _commandHandler;
         private readonly ILogger<LoggingCommandHandlerDecorator<TCommand>> _logger;
 
-        public LoggingCommandHandlerDecorator(ICommandHandler<TCommand> commandHandler,
-            ILogger<LoggingCommandHandlerDecorator<TCommand>> logger)
+        public LoggingCommandHandlerDecorator(
+            ICommandHandler<TCommand> commandHandler,
+            ILogger<LoggingCommandHandlerDecorator<TCommand>> logger
+        )
         {
             _commandHandler = commandHandler;
             _logger = logger;
@@ -25,4 +28,3 @@ namespace MySpot.Infrastructure.Logging.Decorators
         }
     }
 }
-

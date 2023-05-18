@@ -6,14 +6,16 @@ using MySpot.Core.ValueObjects;
 
 namespace MySpot.Infrastructure.DAL.Queries.Handlers
 {
-    internal sealed class GetWeeklyParkingSpotsHandler : IQueryHandler<GetWeeklyParkingSpots, IEnumerable<WeeklyParkingSpotDto>>
+    internal sealed class GetWeeklyParkingSpotsHandler
+        : IQueryHandler<GetWeeklyParkingSpots, IEnumerable<WeeklyParkingSpotDto>>
     {
         private readonly MySpotDbContext _dbContext;
 
-        public GetWeeklyParkingSpotsHandler(MySpotDbContext dbContext)
-            => _dbContext = dbContext;
+        public GetWeeklyParkingSpotsHandler(MySpotDbContext dbContext) => _dbContext = dbContext;
 
-        public async Task<IEnumerable<WeeklyParkingSpotDto>> HandleAsync(GetWeeklyParkingSpots query)
+        public async Task<IEnumerable<WeeklyParkingSpotDto>> HandleAsync(
+            GetWeeklyParkingSpots query
+        )
         {
             var week = query.Date.HasValue ? new Week(query.Date.Value) : null;
             var weeklyParkingSpots = await _dbContext.WeeklyParkingSpots
@@ -26,4 +28,3 @@ namespace MySpot.Infrastructure.DAL.Queries.Handlers
         }
     }
 }
-
