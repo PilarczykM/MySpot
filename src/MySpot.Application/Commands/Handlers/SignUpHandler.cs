@@ -14,7 +14,11 @@ namespace MySpot.Application.Commands.Handlers
         private readonly IPasswordManager _passwordManager;
         private readonly IClock _clock;
 
-        public SignUpHandler(IUserRepository userRepository, IPasswordManager passwordManager, IClock clock)
+        public SignUpHandler(
+            IUserRepository userRepository,
+            IPasswordManager passwordManager,
+            IClock clock
+        )
         {
             _userRepository = userRepository;
             _passwordManager = passwordManager;
@@ -28,7 +32,9 @@ namespace MySpot.Application.Commands.Handlers
             var username = new Username(command.Username);
             var password = new Password(command.Password);
             var fullName = new FullName(command.FullName);
-            var role = string.IsNullOrWhiteSpace(command.Role) ? Role.User() : new Role(command.Role);
+            var role = string.IsNullOrWhiteSpace(command.Role)
+                ? Role.User()
+                : new Role(command.Role);
 
             if (await _userRepository.GetByEmailAsync(email) is not null)
             {
@@ -41,9 +47,16 @@ namespace MySpot.Application.Commands.Handlers
             }
 
             var securedPassword = _passwordManager.Secure(password);
-            var user = new User(userId, email, username, securedPassword, fullName, role, _clock.Current());
+            var user = new User(
+                userId,
+                email,
+                username,
+                securedPassword,
+                fullName,
+                role,
+                _clock.Current()
+            );
             await _userRepository.AddAsync(user);
         }
     }
 }
-

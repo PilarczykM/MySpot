@@ -12,8 +12,12 @@ namespace MySpot.Application.Commands.Handlers
         private readonly IPasswordManager _passwordManager;
         private readonly ITokenStorage _tokenStorage;
 
-        public SignInHandler(IUserRepository userRepository, IAuthenticator authenticator, IPasswordManager passwordManager,
-            ITokenStorage tokenStorage)
+        public SignInHandler(
+            IUserRepository userRepository,
+            IAuthenticator authenticator,
+            IPasswordManager passwordManager,
+            ITokenStorage tokenStorage
+        )
         {
             _userRepository = userRepository;
             _authenticator = authenticator;
@@ -39,4 +43,3 @@ namespace MySpot.Application.Commands.Handlers
         }
     }
 }
-

@@ -6,12 +6,13 @@ using MySpot.Core.ValueObjects;
 
 namespace MySpot.Application.Commands.Handlers
 {
-    public sealed class ChangeReservationLicencePlateHandler : ICommandHandler<ChangeReservationLicencePlate>
+    public sealed class ChangeReservationLicencePlateHandler
+        : ICommandHandler<ChangeReservationLicencePlate>
     {
         private readonly IWeeklyParkingSpotRepository _repository;
 
-        public ChangeReservationLicencePlateHandler(IWeeklyParkingSpotRepository repository)
-            => _repository = repository;
+        public ChangeReservationLicencePlateHandler(IWeeklyParkingSpotRepository repository) =>
+            _repository = repository;
 
         public async Task HandleAsync(ChangeReservationLicencePlate command)
         {
@@ -35,9 +36,9 @@ namespace MySpot.Application.Commands.Handlers
             await _repository.UpdateAsync(weeklyParkingSpot);
         }
 
-        private async Task<WeeklyParkingSpot> GetWeeklyParkingSpotByReservation(ReservationId id)
-            => (await _repository.GetAllAsync())
-                .SingleOrDefault(x => x.Reservations.Any(r => r.Id == id));
+        private async Task<WeeklyParkingSpot> GetWeeklyParkingSpotByReservation(ReservationId id) =>
+            (await _repository.GetAllAsync()).SingleOrDefault(
+                x => x.Reservations.Any(r => r.Id == id)
+            );
     }
 }
-

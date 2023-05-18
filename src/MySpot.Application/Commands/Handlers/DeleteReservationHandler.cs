@@ -10,8 +10,8 @@ namespace MySpot.Application.Commands.Handlers
     {
         private readonly IWeeklyParkingSpotRepository _repository;
 
-        public DeleteReservationHandler(IWeeklyParkingSpotRepository repository)
-            => _repository = repository;
+        public DeleteReservationHandler(IWeeklyParkingSpotRepository repository) =>
+            _repository = repository;
 
         public async Task HandleAsync(DeleteReservation command)
         {
@@ -25,9 +25,9 @@ namespace MySpot.Application.Commands.Handlers
             await _repository.UpdateAsync(weeklyParkingSpot);
         }
 
-        private async Task<WeeklyParkingSpot> GetWeeklyParkingSpotByReservation(ReservationId id)
-            => (await _repository.GetAllAsync())
-                .SingleOrDefault(x => x.Reservations.Any(r => r.Id == id));
+        private async Task<WeeklyParkingSpot> GetWeeklyParkingSpotByReservation(ReservationId id) =>
+            (await _repository.GetAllAsync()).SingleOrDefault(
+                x => x.Reservations.Any(r => r.Id == id)
+            );
     }
 }
-
