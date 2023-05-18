@@ -6,10 +6,10 @@ namespace MySpot.Application.Exceptions
     {
         public string Email { get; }
 
-        public EmailAlreadyInUseException(string email) : base($"Email: '{email}' is already in use.")
+        public EmailAlreadyInUseException(string email)
+            : base($"Email: '{email}' is already in use.")
         {
             Email = email;
         }
     }
 }
-

@@ -8,4 +8,3 @@ namespace MySpot.Application.Security
         JwtDto Get();
     }
 }
-

@@ -1,8 +1,5 @@
 ﻿namespace MySpot.Application.Abstractions
 {
     // Marker
-    public interface ICommand
-    {
-    }
+    public interface ICommand { }
 }
-

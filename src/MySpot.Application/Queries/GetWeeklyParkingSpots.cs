@@ -8,4 +8,3 @@ namespace MySpot.Application.Queries
         public DateTime? Date { get; set; }
     }
 }
-

@@ -6,4 +6,3 @@
         bool Validate(string password, string securedPassword);
     }
 }
-

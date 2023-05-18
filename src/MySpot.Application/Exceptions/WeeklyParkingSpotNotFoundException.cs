@@ -7,9 +7,7 @@ namespace MySpot.Application.Exceptions
         public Guid? Id { get; }
 
         public WeeklyParkingSpotNotFoundException()
-            : base("Weekly parking spot with ID was not found.")
-        {
-        }
+            : base("Weekly parking spot with ID was not found.") { }
 
         public WeeklyParkingSpotNotFoundException(Guid id)
             : base($"Weekly parking spot with ID: {id} was not found.")
@@ -18,4 +16,3 @@ namespace MySpot.Application.Exceptions
         }
     }
 }
-

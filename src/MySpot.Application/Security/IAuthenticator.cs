@@ -7,4 +7,3 @@ namespace MySpot.Application.Security
         JwtDto CreateToken(Guid userId, string role);
     }
 }
-

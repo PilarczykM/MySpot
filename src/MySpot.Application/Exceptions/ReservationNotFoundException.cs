@@ -13,4 +13,3 @@ namespace MySpot.Application.Exceptions
         }
     }
 }
-

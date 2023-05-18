@@ -10,4 +10,3 @@
         public IEnumerable<ReservationDto> Reservations { get; set; }
     }
 }
-
