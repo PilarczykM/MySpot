@@ -1,10 +1,10 @@
 namespace MySpot.Core.Exceptions;
 
-public class InvaliceLicensePlateException : CustomException
+public class InvalidLicencePlateException : CustomException
 {
     public string LicenseName { get; }
 
-    public InvaliceLicensePlateException(string licenseName)
+    public InvalidLicencePlateException(string licenseName)
         : base($"License plate: {licenseName} is invalid.")
     {
         LicenseName = licenseName;

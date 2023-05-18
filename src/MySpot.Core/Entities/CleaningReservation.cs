@@ -2,12 +2,9 @@
 
 namespace MySpot.Core.Entities
 {
-    public sealed class CleaningReservation : Reservation
+    public class CleaningReservation : Reservation
     {
-        private CleaningReservation()
-        {
-        }
-        public CleaningReservation(ReservationId id, Date date, ParkingSpotId parkingSpotId)
-            : base(id, date, parkingSpotId, 2) { }
+        public CleaningReservation(ReservationId id, Date date)
+            : base(id, capacity: 2, date) { }
     }
 }

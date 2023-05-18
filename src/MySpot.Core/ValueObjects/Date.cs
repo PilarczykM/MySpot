@@ -6,7 +6,7 @@ public record Date
 
     public Date(DateTimeOffset value)
     {
-        Value = value;
+        Value = value.Date;
     }
 
     public Date AddDays(int days) => new(Value.AddDays(days));
@@ -26,5 +26,4 @@ public record Date
     public static Date Now => new(DateTimeOffset.Now);
 
     public override string ToString() => Value.ToString("d");
-
 }

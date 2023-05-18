@@ -4,27 +4,27 @@ namespace MySpot.Core.Entities
 {
     public sealed class VehicleReservation : Reservation
     {
+        public UserId UserId { get; private set; }
         public EmployeeName EmployeeName { get; private set; }
-        public LicensePlate LicensePLate { get; private set; }
+        public LicencePlate LicencePlate { get; private set; }
 
-        private VehicleReservation()
-        {
-        }
+        private VehicleReservation() { }
 
         public VehicleReservation(
-            ReservationId id,
-            Date date,
-            ParkingSpotId parkingSpotId,
+            ReservationId reservationId,
+            UserId userId,
             EmployeeName employeeName,
-            LicensePlate licensePLate,
-            Capacity capacity
+            LicencePlate licencePlate,
+            Capacity capacity,
+            Date date
         )
-            : base(id, date, parkingSpotId, capacity)
+            : base(reservationId, capacity, date)
         {
+            UserId = userId;
             EmployeeName = employeeName;
-            LicensePLate = licensePLate;
+            LicencePlate = licencePlate;
         }
 
-        public void ChangeLicensePlate(string licensePlate) => LicensePLate = licensePlate;
+        public void ChangeLicencePlate(LicencePlate licencePlate) => LicencePlate = licencePlate;
     }
 }

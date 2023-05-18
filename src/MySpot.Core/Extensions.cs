@@ -11,7 +11,6 @@ namespace MySpot.Core
             services.AddSingleton<IReservationPolicy, RegularEmployeeReservationPolicy>();
             services.AddSingleton<IReservationPolicy, ManagerReservationPolicy>();
             services.AddSingleton<IReservationPolicy, BossReservationPolicy>();
-
             services.AddSingleton<IParkingReservationService, ParkingReservationService>();
 
             return services;

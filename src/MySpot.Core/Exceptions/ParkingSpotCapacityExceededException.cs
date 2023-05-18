@@ -4,8 +4,8 @@ namespace MySpot.Core.Exceptions
 {
     public sealed class ParkingSpotCapacityExceededException : CustomException
     {
-        public ParkingSpotCapacityExceededException(ParkingSpotId id) :
-            base($"Parking spot with ID: '{id}' exceeds its reservation capacity.")
+        public ParkingSpotCapacityExceededException(ParkingSpotId id)
+            : base($"Parking spot with ID: '{id}' exceeds its reservation capacity.")
         {
             Id = id;
         }
@@ -13,4 +13,3 @@ namespace MySpot.Core.Exceptions
         public ParkingSpotId Id { get; }
     }
 }
-
