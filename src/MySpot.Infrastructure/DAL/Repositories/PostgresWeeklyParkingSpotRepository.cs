@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MySpot.Core.Entities;
 using MySpot.Core.Repositories;
@@ -14,49 +13,33 @@ internal sealed class PostgresWeeklyParkingSpotRepository : IWeeklyParkingSpotRe
     public PostgresWeeklyParkingSpotRepository(MySpotDbContext dbContext)
     {
         _dbContext = dbContext;
-        _weeklyParkingSpots = dbContext.WeeklyParkingSpots;
+        _weeklyParkingSpots = _dbContext.WeeklyParkingSpots;
     }
+
+    public async Task<IEnumerable<WeeklyParkingSpot>> GetAllAsync()
+        => await _weeklyParkingSpots
+            .Include(x => x.Reservations)
+            .ToListAsync();
+
+    public async Task<IEnumerable<WeeklyParkingSpot>> GetByWeekAsync(Week week)
+        => await _weeklyParkingSpots
+            .Include(x => x.Reservations)
+            .Where(x => x.Week == week)
+            .ToListAsync();
+
+    public async Task<WeeklyParkingSpot> GetAsync(ParkingSpotId id)
+        => await _weeklyParkingSpots
+            .Include(x => x.Reservations)
+            .SingleOrDefaultAsync(x => x.Id == id);
 
     public async Task AddAsync(WeeklyParkingSpot weeklyParkingSpot)
     {
         await _weeklyParkingSpots.AddAsync(weeklyParkingSpot);
-        await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(WeeklyParkingSpot weeklyParkingSpot)
-    {
-        _weeklyParkingSpots.Remove(weeklyParkingSpot);
-        await _dbContext.SaveChangesAsync();
-    }
-
-    public Task<WeeklyParkingSpot> GetAsync(ParkingSpotId id) =>
-        _weeklyParkingSpots.Include(x => x.Reservations).SingleOrDefaultAsync(x => x.Id == id);
-
-    public async Task<IEnumerable<WeeklyParkingSpot>> GetAllAsync()
-    {
-        var result = await _weeklyParkingSpots.Include(x => x.Reservations).ToListAsync();
-        return result.AsEnumerable();
-    }
-
-    public async Task<IEnumerable<WeeklyParkingSpot>> GetByWeekAsync(Week week)
-    {
-        var parkingSpots = await _weeklyParkingSpots
-            .Include(x => x.Reservations)
-            .ToListAsync();
-
-        var expectedParkingSpots = parkingSpots
-            .Where<WeeklyParkingSpot>(x => x.Week.To.Value.Year == week.To.Value.Year &&
-            x.Week.To.Value.Month == week.To.Value.Month &&
-            x.Week.To.Value.Day == week.To.Value.Day)
-            .ToList();
-
-        return expectedParkingSpots;
-
-    }
-
-    public async Task UpdateAsync(WeeklyParkingSpot weeklyParkingSpot)
+    public Task UpdateAsync(WeeklyParkingSpot weeklyParkingSpot)
     {
         _weeklyParkingSpots.Update(weeklyParkingSpot);
-        await _dbContext.SaveChangesAsync();
+        return Task.CompletedTask;
     }
 }
