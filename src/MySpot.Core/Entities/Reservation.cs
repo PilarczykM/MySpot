@@ -4,20 +4,16 @@ namespace MySpot.Core.Entities;
 
 public abstract class Reservation
 {
-    public ReservationId Id { get; private set; }
-    public ParkingSpotId ParkingSpotId { get; private set; }
+    public ReservationId Id { get; }
     public Capacity Capacity { get; private set; }
     public Date Date { get; private set; }
 
-    protected Reservation()
-    {
-    }
+    protected Reservation() { }
 
-    public Reservation(ReservationId id, Date date, ParkingSpotId parkingSpotId, Capacity capacity)
+    protected Reservation(ReservationId id, Capacity capacity, Date date)
     {
         Id = id;
-        Date = date;
-        ParkingSpotId = parkingSpotId;
         Capacity = capacity;
+        Date = date;
     }
 }

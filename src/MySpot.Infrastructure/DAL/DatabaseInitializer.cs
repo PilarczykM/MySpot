@@ -1,68 +1,66 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MySpot.Application.Services;
+using MySpot.Core.Abstractions;
 using MySpot.Core.Entities;
 using MySpot.Core.ValueObjects;
 
 namespace MySpot.Infrastructure.DAL;
 
-public class DatabaseInitializer : IHostedService
+internal sealed class DatabaseInitializer : IHostedService
 {
+    // Service locator "anti-pattern" (but it depends) :)
     private readonly IServiceProvider _serviceProvider;
+    private readonly IClock _clock;
 
-    public DatabaseInitializer(IServiceProvider serviceProvider)
+    public DatabaseInitializer(IServiceProvider serviceProvider, IClock clock)
     {
         _serviceProvider = serviceProvider;
+        _clock = clock;
     }
 
-    public Task StartAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        using (var scope = _serviceProvider.CreateScope())
+        using var scope = _serviceProvider.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<MySpotDbContext>();
+        await dbContext.Database.MigrateAsync(cancellationToken);
+
+        if (await dbContext.WeeklyParkingSpots.AnyAsync(cancellationToken))
         {
-            var dbContext = scope.ServiceProvider.GetRequiredService<MySpotDbContext>();
-            dbContext.Database.Migrate();
-
-            var weeklyParkingSpot = dbContext.WeeklyParkingSpots.ToList();
-            if (weeklyParkingSpot.Any())
-            {
-                return Task.CompletedTask;
-            }
-            var clock = new Clock();
-            weeklyParkingSpot = new List<WeeklyParkingSpot>()
-            {
-                WeeklyParkingSpot.Create(
-                    Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                    "P1",
-                    new Week(clock.Current())
-                ),
-                WeeklyParkingSpot.Create(
-                    Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                    "P2",
-                    new Week(clock.Current())
-                ),
-                WeeklyParkingSpot.Create(
-                    Guid.Parse("00000000-0000-0000-0000-000000000003"),
-                    "P3",
-                    new Week(clock.Current())
-                ),
-                WeeklyParkingSpot.Create(
-                    Guid.Parse("00000000-0000-0000-0000-000000000004"),
-                    "P4",
-                    new Week(clock.Current())
-                ),
-                WeeklyParkingSpot.Create(
-                    Guid.Parse("00000000-0000-0000-0000-000000000005"),
-                    "P5",
-                    new Week(clock.Current())
-                ),
-            };
-
-            dbContext.WeeklyParkingSpots.AddRange(weeklyParkingSpot);
-            dbContext.SaveChanges();
+            return;
         }
 
-        return Task.CompletedTask;
+        var weeklyParkingSpots = new List<WeeklyParkingSpot>
+        {
+            WeeklyParkingSpot.Create(
+                Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                new Week(_clock.Current()),
+                "P1"
+            ),
+            WeeklyParkingSpot.Create(
+                Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                new Week(_clock.Current()),
+                "P2"
+            ),
+            WeeklyParkingSpot.Create(
+                Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                new Week(_clock.Current()),
+                "P3"
+            ),
+            WeeklyParkingSpot.Create(
+                Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                new Week(_clock.Current()),
+                "P4"
+            ),
+            WeeklyParkingSpot.Create(
+                Guid.Parse("00000000-0000-0000-0000-000000000005"),
+                new Week(_clock.Current()),
+                "P5"
+            ),
+        };
+
+        await dbContext.WeeklyParkingSpots.AddRangeAsync(weeklyParkingSpots, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

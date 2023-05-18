@@ -4,11 +4,9 @@ using MySpot.Core.Entities;
 
 namespace MySpot.Infrastructure.DAL.Confgurations
 {
-    internal sealed class CleaningReservationConfiguration : IEntityTypeConfiguration<CleaningReservation>
+    internal sealed class CleaningReservationConfiguration
+        : IEntityTypeConfiguration<CleaningReservation>
     {
-        public void Configure(EntityTypeBuilder<CleaningReservation> builder)
-        {
-        }
+        public void Configure(EntityTypeBuilder<CleaningReservation> builder) { }
     }
 }
-

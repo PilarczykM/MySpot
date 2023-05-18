@@ -17,7 +17,7 @@ namespace MySpot.Core.ValueObjects
         }
 
         public static implicit operator int(Capacity capacity) => capacity.Value;
+
         public static implicit operator Capacity(int capacity) => new(capacity);
     }
 }
-

@@ -1,16 +1,14 @@
-using MySpot.Core.ValueObjects;
-
 namespace MySpot.Core.Exceptions;
 
 public sealed class ParkingSpotAlreadyReservedException : CustomException
 {
-    public string Name { get; }
-    public Date Date { get; }
+    public string ParkingSpotName { get; }
+    public DateTime Date { get; }
 
-    public ParkingSpotAlreadyReservedException(string name, Date date)
-        : base($"Parking spot '{name}' is already reserved at: {date:d}")
+    public ParkingSpotAlreadyReservedException(string parkingSpotName, DateTime date)
+        : base($"Parking spot with name {parkingSpotName} is already reserved for date: {date}")
     {
-        Name = name;
+        ParkingSpotName = parkingSpotName;
         Date = date;
     }
 }

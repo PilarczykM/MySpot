@@ -1,20 +1,29 @@
 ﻿using Humanizer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using MySpot.Core.Exceptions;
 
-namespace MySpot.Infrastructure.Middlewares
+namespace MySpot.Infrastructure.Exceptions
 {
     internal sealed class ExceptionMiddleware : IMiddleware
     {
+        private readonly ILogger<ExceptionMiddleware> _logger;
+
+        public ExceptionMiddleware(ILogger<ExceptionMiddleware> logger)
+        {
+            _logger = logger;
+        }
+
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
                 await next(context);
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                await HandleExceptionAsync(e, context);
+                _logger.LogError(exception, exception.Message);
+                await HandleExceptionAsync(exception, context);
             }
         }
 
@@ -28,15 +37,15 @@ namespace MySpot.Infrastructure.Middlewares
                         new Error(
                             exception
                                 .GetType()
-                                .Name.Replace("Exception", string.Empty)
-                                .Underscore(),
+                                .Name.Underscore()
+                                .Replace("_exception", string.Empty),
                             exception.Message
                         )
                     ),
                 _
                     => (
                         StatusCodes.Status500InternalServerError,
-                        new Error("Error", "There was an error.")
+                        new Error("error", "There was an error.")
                     )
             };
 
